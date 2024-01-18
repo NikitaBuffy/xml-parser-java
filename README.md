@@ -20,7 +20,7 @@ Java 17, JDBC, Maven, H2
 ## Инструкция по запуску
 
 ```bash
-  mvn clean package
+  mvn clean install
 ```
 ```bash
   java -jar target/xml-parser-java-1.0-SNAPSHOT.jar
