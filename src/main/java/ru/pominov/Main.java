@@ -29,6 +29,9 @@ public class Main {
             // Парсинг из xml-файла и импорт в БД
             dataImporter.importData(connection, "books.xml");
 
+            // Парсинг из xml-файла и импорт в БД (новый файл, содержащий данные, уже имеющиеся в БД (для проверки игнорирования дубликатов на уровне БД))
+            dataImporter.importData(connection, "new-books.xml");
+
             // Вытягиваем добавленные данные из таблицы 'books'
             List<Book> importedBooks = dataRetriever.retrieveData(connection);
             System.out.println("Добавленные данные в БД:");

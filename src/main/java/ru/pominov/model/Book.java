@@ -1,5 +1,7 @@
 package ru.pominov.model;
 
+import java.util.Objects;
+
 public class Book {
 
     private final Integer id;
@@ -41,5 +43,18 @@ public class Book {
                 ", publishDate='" + publishDate + '\'' +
                 ", description='" + description + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Book book = (Book) o;
+        return Objects.equals(id, book.id) && Objects.equals(author, book.author) && Objects.equals(title, book.title) && Objects.equals(publishDate, book.publishDate) && Objects.equals(description, book.description);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, author, title, publishDate, description);
     }
 }

@@ -14,8 +14,8 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -23,8 +23,9 @@ public class XmlDataParser {
 
     private static final Logger LOGGER = AppLogger.getLogger();
 
-    public static List<Book> parseXml(String filePath) {
-        List<Book> bookList = new ArrayList<>();
+    public static Set<Book> parseXml(String filePath) {
+        // Используем HashSet для обеспечения уникальных данных в процессе парсинга
+        Set<Book> bookSet = new HashSet<>();
 
         try {
             File file = new File(filePath);
@@ -48,18 +49,18 @@ public class XmlDataParser {
                     String publishDate = element.getElementsByTagName("publish_date").item(0).getTextContent().trim();
                     String description = element.getElementsByTagName("description").item(0).getTextContent().trim();
 
-                    bookList.add(new Book(null, author, title, publishDate, description));
+                    bookSet.add(new Book(null, author, title, publishDate, description));
                 }
             }
 
             // Выводим количество спаршенных объектов для сверки
-            LOGGER.log(Level.INFO, "Parsed from XML. Amount: " + bookList.size() + ". Data: " + bookList);
+            LOGGER.log(Level.INFO, "Parsed from XML. Amount: " + bookSet.size() + ". Data: " + bookSet);
         } catch (FileNotFoundException e) {
             LOGGER.log(Level.SEVERE, "XML file not found", e);
         } catch (ParserConfigurationException | SAXException | IOException e) {
             LOGGER.log(Level.SEVERE, "Error parsing XML", e);
         }
 
-        return bookList;
+        return bookSet;
     }
 }
